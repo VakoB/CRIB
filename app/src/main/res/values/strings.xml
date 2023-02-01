@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">MySocialMedia</string>
+    <string name="forgot_pass_context">Enter your E-mail address, we will send you an email to reset your password</string>
+    <string name="email_sent">Send email Successfully</string>
+    <string name="read_storage_permission_denied">You denied the permission for storage. You can also allow it from Settings.</string>
+    <string name="title_activity_dashboard">DashboardActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+</resources>
