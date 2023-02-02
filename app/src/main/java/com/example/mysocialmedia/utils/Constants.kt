@@ -13,6 +13,8 @@ object Constants {
     const val EXTRA_INFO: String = "extra_user_details"
     const val PICK_IMAGE_REQUEST_CODE = 1
     const val READ_STORAGE_PERMISSION_CODE = 2
+    const val FIRST_NAME = "firstname"
+    const val LAST_NAME = "lastname"
     const val MALE: String = "male"
     const val FEMALE: String = "female"
     const val MOBILE: String = "mobile"

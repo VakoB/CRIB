@@ -1,13 +1,12 @@
-package com.example.mysocialmedia
+package com.example.mysocialmedia.ui.fragments.activities
 
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
+import com.example.mysocialmedia.R
 import com.example.mysocialmedia.databinding.ActivityRegistrationBinding
 import com.example.mysocialmedia.firestore.Firestore
 import com.example.mysocialmedia.models.User

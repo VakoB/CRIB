@@ -1,15 +1,13 @@
-package com.example.mysocialmedia
+package com.example.mysocialmedia.ui.fragments.activities
 
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
+import com.example.mysocialmedia.R
 import com.example.mysocialmedia.databinding.ActivityForgotPassBinding
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.coroutines.Delay
-import kotlinx.coroutines.delay
 
 class ForgotPassActivity : BaseActivity() {
     private lateinit var binding: ActivityForgotPassBinding

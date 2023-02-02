@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".LoginActivity">
+    tools:context=".ui.fragments.activities.LoginActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/forgotPassToolbar"
@@ -100,7 +100,8 @@
         android:background="@drawable/edit_text_background"
         android:padding="13dp"
         android:hint="E-mail"
-        android:textColorHint="#5B000000"/>
+        android:textColorHint="#5B000000"
+        android:textColor="#595959"/>
 
 
     <Button

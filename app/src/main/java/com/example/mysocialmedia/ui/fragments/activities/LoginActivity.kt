@@ -1,22 +1,16 @@
-package com.example.mysocialmedia
+package com.example.mysocialmedia.ui.fragments.activities
 
 import android.content.Intent
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
-import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
-import android.widget.TextView
-import androidx.navigation.findNavController
 import com.example.mysocialmedia.databinding.ActivityLoginBinding
 import com.example.mysocialmedia.firestore.Firestore
 import com.example.mysocialmedia.models.User
 import com.example.mysocialmedia.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 
 class LoginActivity : BaseActivity() {
     private lateinit var binding: ActivityLoginBinding
@@ -86,14 +80,13 @@ class LoginActivity : BaseActivity() {
     fun userLoggedInSuccess(user: User){
         hideProgressDialog()
 
-
         if (user.profileCompleted == 0){
             val intent = Intent(this@LoginActivity, EditProfileActivity::class.java)
             intent.putExtra(Constants.EXTRA_INFO, user)
             startActivity(intent)
         }
         else{
-            startActivity(Intent(this@LoginActivity,MainActivity::class.java))
+            startActivity(Intent(this@LoginActivity, DashboardActivity::class.java))
         }
         finish()
     }

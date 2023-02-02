@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EditProfileActivity">
+    tools:context=".ui.fragments.activities.EditProfileActivity">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/editProfileToolbar"
         android:layout_width="match_parent"
@@ -15,6 +15,7 @@
         android:background="@color/appColor">
 
         <TextView
+            android:id="@+id/pageTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
@@ -66,7 +67,7 @@
                     android:id="@+id/circleImageView"
                     android:layout_width="190dp"
                     android:layout_height="190dp"
-                    android:src="@mipmap/ic_launcher"
+                    android:src="@drawable/ic_baseline_person_26"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -88,7 +89,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.43" />
+                    app:layout_constraintVertical_bias="0.43"
+                    android:textColor="#595959"/>
 
                 <EditText
                     android:id="@+id/etLastNameEdit"
@@ -106,7 +108,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.56" />
+                    app:layout_constraintVertical_bias="0.56"
+                    android:textColor="#595959"/>
 
                 <EditText
                     android:id="@+id/etEmailEdit"
@@ -124,7 +127,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.69" />
+                    app:layout_constraintVertical_bias="0.69"
+                    android:textColor="#595959"/>
 
                 <RadioGroup
                     android:id="@+id/radioGroup"

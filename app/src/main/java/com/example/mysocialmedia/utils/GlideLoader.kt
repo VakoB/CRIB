@@ -10,14 +10,14 @@ import java.net.URI
 
 class GlideLoader(val context: Context) {
 
-    fun loadUserPicture(imageURI: Uri, imageView: ImageView) {
+    fun loadUserPicture(image: Any, imageView: ImageView) {             //was imageURI: Url
         try {
             //load user image in imageview
             Glide
                 .with(context)
-                .load(imageURI) //URI of the image
+                .load(image) //URI of the image
                 .centerCrop() //scale type of image
-                .placeholder(R.drawable.ic_launcher_foreground) //default image if it fails to load
+                .placeholder(R.drawable.ic_baseline_person_24) //default image if it fails to load
                 .into(imageView) //the view that in image view will be loaded
         } catch (e: IOException){
             e.printStackTrace()

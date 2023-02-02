@@ -1,18 +1,9 @@
-package com.example.mysocialmedia
+package com.example.mysocialmedia.ui.fragments.activities
 
-import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Button
 import com.example.mysocialmedia.databinding.ActivityMainBinding
-import com.example.mysocialmedia.firestore.Firestore
-import com.example.mysocialmedia.models.User
 import com.example.mysocialmedia.utils.Constants
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.SetOptions
 
 class MainActivity : BaseActivity() {
     private lateinit var binding: ActivityMainBinding

@@ -5,10 +5,8 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.net.Uri
 import android.util.Log
-import com.example.mysocialmedia.EditProfileActivity
-import com.example.mysocialmedia.LoginActivity
-import com.example.mysocialmedia.RegistrationActivity
 import com.example.mysocialmedia.models.User
+import com.example.mysocialmedia.ui.fragments.activities.*
 import com.example.mysocialmedia.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -77,6 +75,10 @@ class Firestore {
                     is LoginActivity -> {
                         activity.userLoggedInSuccess(user)
                     }
+                    is ProfileActivity -> {
+                        activity.userDetailsSuccess(user)
+                    }
+
 
                 }
 
@@ -86,6 +88,10 @@ class Firestore {
                     is LoginActivity -> {
                         activity.hideProgressDialog()
                     }
+                    is ProfileActivity -> {
+                        activity.hideProgressDialog()
+                    }
+
                 }
                 Log.e(activity.javaClass.simpleName,"Error while logging in",e )
 
@@ -156,6 +162,7 @@ class Firestore {
             }
 
     }
+
 
 }
 

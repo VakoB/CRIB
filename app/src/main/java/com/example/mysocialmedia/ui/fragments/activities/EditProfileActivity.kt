@@ -1,35 +1,25 @@
-package com.example.mysocialmedia
+package com.example.mysocialmedia.ui.fragments.activities
 
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.content.pm.PackageManager
-import android.content.pm.PackageManager.PERMISSION_GRANTED
-import android.graphics.Color
-import android.graphics.drawable.Drawable
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
-import android.widget.Button
 import androidx.core.content.ContextCompat
-import androidx.core.content.PermissionChecker.PERMISSION_GRANTED
 import com.example.mysocialmedia.databinding.ActivityEditProfileBinding
 import com.example.mysocialmedia.models.User
 import com.example.mysocialmedia.utils.Constants
-import org.checkerframework.common.returnsreceiver.qual.This
-import android.app.appsearch.SetSchemaRequest.READ_EXTERNAL_STORAGE
-import android.Manifest.permission.READ_EXTERNAL_STORAGE
-import android.Manifest.permission.READ_MEDIA_IMAGES
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.util.Log
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.bumptech.glide.Glide
+import com.example.mysocialmedia.R
 import com.example.mysocialmedia.firestore.Firestore
 import com.example.mysocialmedia.utils.GlideLoader
 import java.io.IOException
@@ -51,30 +41,52 @@ class EditProfileActivity : BaseActivity(), View.OnClickListener {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
             )
+
         }
-        setUpActionBar()
 
 
 
         if (intent.hasExtra(Constants.EXTRA_INFO)) {
             mUserDetails = intent.getParcelableExtra(Constants.EXTRA_INFO)!!
         }
-        binding.etFirstNameEdit.isEnabled = false
+
         binding.etFirstNameEdit.setText(mUserDetails.firstname)
-        binding.etLastNameEdit.isEnabled = false
         binding.etLastNameEdit.setText(mUserDetails.lastname)
         binding.etEmailEdit.isEnabled = false
         binding.etEmailEdit.setText(mUserDetails.email)
+
+        if (mUserDetails.profileCompleted == 0){
+            binding.pageTitle.text = resources.getString(R.string.complete_profile)
+            binding.etFirstNameEdit.isEnabled = false
+            binding.etLastNameEdit.isEnabled = false
+
+        }else{
+            setUpActionBar()
+            binding.pageTitle.text = resources.getString(R.string.edit_profile)
+            GlideLoader(this@EditProfileActivity).loadUserPicture(mUserDetails.image, binding.circleImageView)
+            if (mUserDetails.gender == Constants.MALE){
+                binding.radioButtonMale.isChecked = true
+            }else{
+                binding.radioButtonFemale.isChecked = true
+            }
+        }
+
 
 
         binding.circleImageView.setOnClickListener(this@EditProfileActivity)
         binding.submitEditProfile.setOnClickListener(this@EditProfileActivity)
 
+
         }
         private fun setUpActionBar() {
 
             setSupportActionBar(binding.editProfileToolbar)
-
+            val actionBar = supportActionBar
+            if (actionBar != null){
+                actionBar.setDisplayHomeAsUpEnabled(true)
+                actionBar.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_25)
+            }
+            binding.editProfileToolbar.setNavigationOnClickListener { onBackPressed() }
         }
 
     override fun onClick(v: View?) {
@@ -105,11 +117,24 @@ class EditProfileActivity : BaseActivity(), View.OnClickListener {
     }
     private fun updateUserProfileWithoutImage(){
         val userHashMap = HashMap<String,Any>()
+
+        val firstName = binding.etFirstNameEdit.text.toString().trim{ it <= ' '}
+        if (firstName != mUserDetails.firstname) {
+            userHashMap[Constants.FIRST_NAME] = firstName
+        }
+        val lastName = binding.etLastNameEdit.text.toString().trim{ it <= ' '}
+        if (lastName != mUserDetails.lastname) {
+            userHashMap[Constants.FIRST_NAME] = lastName
+        }
+
         val gender = if (binding.radioButtonMale.isChecked){
             Constants.MALE
         }
         else{
             Constants.FEMALE
+        }
+        if (gender.isNotEmpty() && gender != mUserDetails.gender){
+            userHashMap[Constants.GENDER] = gender
         }
         if (mUserProfileImageURL.isNotEmpty()){
             userHashMap[Constants.IMAGE] = mUserProfileImageURL
@@ -117,7 +142,9 @@ class EditProfileActivity : BaseActivity(), View.OnClickListener {
 
         userHashMap[Constants.GENDER] = gender
         //showProgressDialog("Please Wait...")
-        userHashMap[Constants.COMPLETED_PROFILE] = 1                // changing it to one when user logs in the first time, it will remain 1 after the first time
+        userHashMap[Constants.COMPLETED_PROFILE] = 1 // changing it to one when user logs in the first time, it will remain 1 after the first time
+
+
 
         Firestore().updateUserProfileData(this@EditProfileActivity,userHashMap)
 
@@ -164,10 +191,10 @@ class EditProfileActivity : BaseActivity(), View.OnClickListener {
     }
 
     fun userProfileUpdateSuccess(){
-        hideProgressDialog()
+
         Toast.makeText(this@EditProfileActivity,
         "Profile has updated successfully.", Toast.LENGTH_LONG).show()
-        val intent = Intent(this@EditProfileActivity, MainActivity::class.java)
+        val intent = Intent(this@EditProfileActivity, DashboardActivity::class.java)
         startActivity(intent)
         finish()
 

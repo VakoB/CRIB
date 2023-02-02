@@ -1,15 +1,13 @@
-package com.example.mysocialmedia
+package com.example.mysocialmedia.ui.fragments.activities
 
-import android.annotation.SuppressLint
 import android.app.Dialog
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import com.example.mysocialmedia.R
 import com.example.mysocialmedia.databinding.ActivityBaseBinding
 import com.google.android.material.snackbar.Snackbar
 
@@ -31,7 +29,7 @@ open class BaseActivity : AppCompatActivity() {
         if (errorMessage){
             snackBarView.setBackgroundColor(
                 ContextCompat.getColor(
-                    this,R.color.Error
+                    this, R.color.Error
                 )
             )
         }
@@ -39,7 +37,7 @@ open class BaseActivity : AppCompatActivity() {
 
             snackBarView.setBackgroundColor(
                 ContextCompat.getColor(
-                    this,R.color.Success
+                    this, R.color.Success
                 )
             )
 
