@@ -9,5 +9,7 @@
     <string name="title_notifications">Notifications</string>
     <string name="complete_profile">COMPLETE PROFILE</string>
     <string name="edit_profile">EDIT PROFILE</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

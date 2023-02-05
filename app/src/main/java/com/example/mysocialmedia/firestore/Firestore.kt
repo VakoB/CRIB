@@ -5,6 +5,8 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.net.Uri
 import android.util.Log
+import androidx.fragment.app.Fragment
+import com.example.mysocialmedia.models.Post
 import com.example.mysocialmedia.models.User
 import com.example.mysocialmedia.ui.fragments.activities.*
 import com.example.mysocialmedia.utils.Constants
@@ -118,7 +120,6 @@ class Firestore {
                 when (activity){
                     is EditProfileActivity -> {
                         activity.hideProgressDialog()
-
                     }
                 }
                 Log.e(activity.javaClass.simpleName,
@@ -162,7 +163,76 @@ class Firestore {
             }
 
     }
+    fun setPostsInFirestore(activity: PostActivity, postInfo: Post){
 
+        mFirestore.collection(Constants.POSTS)
+            .document(postIdGenerator())
+            .set(postInfo)
+            .addOnSuccessListener {
 
+                activity.postedSuccessfully()
+
+            }
+            .addOnFailureListener { e ->
+                activity.hideProgressDialog()
+                Log.e(
+                    activity.javaClass.simpleName,
+                    "Error while uploading a post.",
+                    e
+                )
+            }
+    }
+    fun uploadPostImageToCloudStorage(activity: Activity, imageFileURI: Uri?){
+        val sRef: StorageReference = FirebaseStorage.getInstance()
+            .reference.child(Constants.POST_IMAGE2 + System.currentTimeMillis() + "."
+                    + Constants.getFileExtension(activity, imageFileURI))
+        sRef.putFile(imageFileURI!!)
+            .addOnSuccessListener { taskSnapshot ->
+                Log.e("Firebase Image URL", taskSnapshot.metadata!!.reference!!.downloadUrl.toString())
+
+                //get the downloadable url from the task snapshot
+
+                taskSnapshot.metadata!!.reference!!.downloadUrl
+                    .addOnSuccessListener { uri ->
+                        Log.e("Downloadable Image URL", uri.toString())
+                        when (activity){
+                            is PostActivity -> {
+                                activity.postImageUploadSuccess(uri.toString())
+                            }
+                        }
+                    }
+
+            }
+            .addOnFailureListener{ exception ->
+                when (activity){
+                    is PostActivity -> {
+                        activity.hideProgressDialog()
+                    }
+                }
+                Log.e(
+                    activity.javaClass.simpleName,
+                    exception.message,
+                    exception
+                )
+
+            }
+
+    }
+    fun setPostInFirestore(activity: Activity, postHashMap: HashMap<String, Any>) {
+        mFirestore.collection(Constants.POSTS)
+            .document("${getCurrentUserID()}_post${System.currentTimeMillis()}")
+            .set(postHashMap, SetOptions.merge())
+            .addOnSuccessListener {
+
+            }
+            .addOnFailureListener { e ->
+
+            }
+    }
+    private fun postIdGenerator(): String{
+        val userId = Firestore().getCurrentUserID()
+        val postId = "${userId}_post${System.currentTimeMillis()}"
+        return  postId
+    }
 }
 

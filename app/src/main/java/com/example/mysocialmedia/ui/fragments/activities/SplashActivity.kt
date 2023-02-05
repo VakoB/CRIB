@@ -18,7 +18,6 @@ import kotlin.math.log
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : BaseActivity() {
-    private lateinit var mUserDetails: User
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
@@ -36,7 +35,13 @@ class SplashActivity : BaseActivity() {
 
         Handler().postDelayed(
             {
-                if (FirebaseAuth.getInstance().currentUser != null){
+
+
+
+                val intent = Intent(this@SplashActivity, LoginActivity::class.java)
+                startActivity(intent)
+                finish()
+                /*if (FirebaseAuth.getInstance().currentUser != null){
                     val intent = Intent(this@SplashActivity, DashboardActivity::class.java)
                     startActivity(intent)
                     finish()
@@ -44,7 +49,11 @@ class SplashActivity : BaseActivity() {
                     val intent = Intent(this@SplashActivity, LoginActivity::class.java)
                     startActivity(intent)
                     finish()
-                }
+                }*/
+
+
+
+
             },
             2500
         )
