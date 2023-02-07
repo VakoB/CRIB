@@ -16,6 +16,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.mysocialmedia.R
+import com.example.mysocialmedia.adapters.PostAdapter
 import com.example.mysocialmedia.databinding.ActivityPostBinding
 import com.example.mysocialmedia.firestore.Firestore
 import com.example.mysocialmedia.models.Comment
@@ -28,6 +29,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.ktx.Firebase
 
 class PostActivity : BaseActivity(), View.OnClickListener {
+    private lateinit var postAdapter: PostAdapter
     private var mSelectedPostImageFileUri: Uri? = null
     private var mPostImageURL: String = ""
     private lateinit var binding: ActivityPostBinding
@@ -65,10 +67,10 @@ class PostActivity : BaseActivity(), View.OnClickListener {
     }
 
 
-    fun postedSuccessfully(){
-        hideProgressDialog()
-        Toast.makeText(this@PostActivity, "You have posted successfully.",Toast.LENGTH_LONG).show()
-        //todo: go to homeFragment to see the post straight away.
+    fun postedSuccessfully(postId: String){
+
+        Firestore().getPostDetails(this@PostActivity, postId, postAdapter)
+
     }
 
     override fun onClick(v: View?) {
@@ -90,8 +92,12 @@ class PostActivity : BaseActivity(), View.OnClickListener {
                     if (mSelectedPostImageFileUri != null){
                         Firestore().uploadPostImageToCloudStorage(this@PostActivity, mSelectedPostImageFileUri)
                     }
-                    else{
+                    else if (mSelectedPostImageFileUri == null && binding.postTitle.text.toString().isNotEmpty()){
                         postWithoutImage()
+                    }
+                    else{
+                        hideProgressDialog()
+                        showErrorSnackBar("You haven't made it clear what to post", true)
                     }
 
                 }
@@ -154,6 +160,14 @@ class PostActivity : BaseActivity(), View.OnClickListener {
         mPostImageURL = imageURL
         postWithoutImage()
     }
+    fun moveToDashboard(){
+        hideProgressDialog()
+        Toast.makeText(this@PostActivity, "You have posted successfully.",Toast.LENGTH_LONG).show()
+        val intent = Intent(this@PostActivity, DashboardActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
 
 
 }

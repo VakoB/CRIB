@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.*
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.example.mysocialmedia.R
 import com.example.mysocialmedia.databinding.FragmentDashboardBinding
 import com.example.mysocialmedia.ui.fragments.activities.ProfileActivity

@@ -37,11 +37,7 @@ class SplashActivity : BaseActivity() {
             {
 
 
-
-                val intent = Intent(this@SplashActivity, LoginActivity::class.java)
-                startActivity(intent)
-                finish()
-                /*if (FirebaseAuth.getInstance().currentUser != null){
+                if (FirebaseAuth.getInstance().currentUser != null){
                     val intent = Intent(this@SplashActivity, DashboardActivity::class.java)
                     startActivity(intent)
                     finish()
@@ -49,7 +45,7 @@ class SplashActivity : BaseActivity() {
                     val intent = Intent(this@SplashActivity, LoginActivity::class.java)
                     startActivity(intent)
                     finish()
-                }*/
+                }
 
 
 

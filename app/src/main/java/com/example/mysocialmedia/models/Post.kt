@@ -13,5 +13,6 @@ class Post(
     val authorId: String = "",
     val author: String = "",
     val likes: Long = 0,
-    val comments: List<Comment> = emptyList()
+    val comments: List<Comment> = emptyList(),
+    var id: String = "",
 ) : Parcelable

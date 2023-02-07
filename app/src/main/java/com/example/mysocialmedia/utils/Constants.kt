@@ -9,6 +9,7 @@ import com.example.mysocialmedia.firestore.Firestore
 import java.sql.Timestamp
 
 object Constants {
+    val POST_ID: String = "postId"
     const val USERS: String = "users"
     const val MYPREFERENCES: String = "MyPrefs"
     const val LOGGED_IN_USERNAME: String = "logged_in_username"

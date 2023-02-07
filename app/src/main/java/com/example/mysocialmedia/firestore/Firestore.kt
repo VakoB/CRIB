@@ -5,7 +5,10 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.net.Uri
 import android.util.Log
+import android.widget.Adapter
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.mysocialmedia.adapters.PostAdapter
 import com.example.mysocialmedia.models.Post
 import com.example.mysocialmedia.models.User
 import com.example.mysocialmedia.ui.fragments.activities.*
@@ -164,17 +167,31 @@ class Firestore {
 
     }
     fun setPostsInFirestore(activity: PostActivity, postInfo: Post){
-
+        val postId = postIdGenerator()
+        postInfo.id = postId
         mFirestore.collection(Constants.POSTS)
-            .document(postIdGenerator())
+            .document(postId)
             .set(postInfo)
             .addOnSuccessListener {
 
-                activity.postedSuccessfully()
+                val sharedPreferences =
+                    activity.getSharedPreferences(
+                        Constants.MYPREFERENCES,
+                        Context.MODE_PRIVATE
+                    )
+                val editor: SharedPreferences.Editor = sharedPreferences.edit()
+
+                editor.putString(Constants.POST_ID,
+                    postId
+                )
+                editor.apply()
+
+                activity.postedSuccessfully(postId)
 
             }
             .addOnFailureListener { e ->
                 activity.hideProgressDialog()
+                activity.showErrorSnackBar("Error while uploading a post", true)
                 Log.e(
                     activity.javaClass.simpleName,
                     "Error while uploading a post.",
@@ -233,6 +250,40 @@ class Firestore {
         val userId = Firestore().getCurrentUserID()
         val postId = "${userId}_post${System.currentTimeMillis()}"
         return  postId
+    }
+    fun getPostDetails(activity: Activity, postId: String, postAdapter: PostAdapter){
+
+        mFirestore.collection(Constants.POSTS)
+            .document(postId)
+            .get()
+            .addOnSuccessListener { document ->
+                Log.i(activity.javaClass.simpleName, document.toString())
+                var post = document.toObject(Post::class.java)!!
+                postAdapter.updatePost(post)
+                when (activity){
+                    is PostActivity -> {
+                        activity.moveToDashboard()
+                    }
+                }
+
+
+
+            }
+            .addOnFailureListener { e ->
+                when (activity){
+                    is PostActivity -> {
+                        activity.hideProgressDialog()
+                    }
+
+                }
+                Log.e(activity.javaClass.simpleName,"Error while logging in",e )
+
+
+            }
+
+
+
+
     }
 }
 
