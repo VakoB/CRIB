@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import com.example.mysocialmedia.adapters.PostAdapter
 import com.example.mysocialmedia.models.Post
 import com.example.mysocialmedia.models.User
+import com.example.mysocialmedia.ui.fragments.HomeFragment
 import com.example.mysocialmedia.ui.fragments.activities.*
 import com.example.mysocialmedia.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
@@ -251,7 +252,7 @@ class Firestore {
         val postId = "${userId}_post${System.currentTimeMillis()}"
         return  postId
     }
-    fun getPostDetails(activity: Activity, postId: String, postAdapter: PostAdapter){
+    fun getPostDetails(activity: Activity, postId: String){
 
         mFirestore.collection(Constants.POSTS)
             .document(postId)
@@ -259,7 +260,7 @@ class Firestore {
             .addOnSuccessListener { document ->
                 Log.i(activity.javaClass.simpleName, document.toString())
                 var post = document.toObject(Post::class.java)!!
-                postAdapter.updatePost(post)
+
                 when (activity){
                     is PostActivity -> {
                         activity.moveToDashboard()
@@ -285,5 +286,37 @@ class Firestore {
 
 
     }
+    /*fun getPostDetailsForFragment(fragment: Fragment, postId: String){
+        mFirestore.collection(Constants.POSTS)
+            .document(postId)
+            .get()
+            .addOnSuccessListener { document ->
+                var post = document.toObject(Post::class.java)!!
+
+                when (fragment){
+                    is HomeFragment -> {
+
+                    }
+                }
+
+
+
+            }
+            .addOnFailureListener { e ->
+                when (fragment){
+                    is HomeFragment -> {
+                        fragment.hideProgressDialog()
+                    }
+
+                }
+                Log.e(fragment.javaClass.simpleName,"Error while logging in",e )
+
+
+            }
+
+
+
+
+    }*/
 }
 

@@ -9,6 +9,7 @@ import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
@@ -27,6 +28,8 @@ import java.io.IOException
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.ktx.Firebase
+import java.text.DateFormat
+import java.util.Calendar
 
 class PostActivity : BaseActivity(), View.OnClickListener {
     private lateinit var postAdapter: PostAdapter
@@ -69,7 +72,7 @@ class PostActivity : BaseActivity(), View.OnClickListener {
 
     fun postedSuccessfully(postId: String){
 
-        Firestore().getPostDetails(this@PostActivity, postId, postAdapter)
+        Firestore().getPostDetails(this@PostActivity, postId)
 
     }
 
@@ -117,7 +120,10 @@ class PostActivity : BaseActivity(), View.OnClickListener {
             currentUserID = currentUser.uid
         }
         val textOfPost = binding.postTitle.text.toString()
-        val time = Timestamp.now()
+        val time = Calendar.getInstance().time
+        val date = DateFormat.getDateInstance().format(time)
+        val formattedDate = date
+        Log.e("date","date: $formattedDate")
         if (mPostImageURL.isNotEmpty()){
             mPostImageURL2 = mPostImageURL
         }
@@ -125,9 +131,9 @@ class PostActivity : BaseActivity(), View.OnClickListener {
         val post = Post(
             title = textOfPost,
             image = mPostImageURL2,
-            time = time,
             authorId = currentUserID,
             author = username,
+            time = formattedDate
         )
         Firestore().setPostsInFirestore(this@PostActivity, post)
 

@@ -9,10 +9,10 @@ import com.google.firebase.Timestamp
 class Post(
     val title: String = "",
     val image: String = "",
-    val time: Timestamp = Timestamp.now(),
     val authorId: String = "",
     val author: String = "",
     val likes: Long = 0,
     val comments: List<Comment> = emptyList(),
     var id: String = "",
+    val time: String ="",
 ) : Parcelable

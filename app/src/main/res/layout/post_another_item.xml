@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white">
@@ -15,7 +16,7 @@
         app:layout_constraintVertical_bias="0.0">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/authorImage"
+            android:id="@+id/authorAnotherImage"
             android:layout_width="75dp"
             android:layout_height="75dp"
             android:layout_marginStart="15dp"
@@ -27,7 +28,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/authorName"
+                android:id="@+id/authorAnotherName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -48,7 +49,7 @@
                     />
 
                 <TextView
-                    android:id="@+id/postDate"
+                    android:id="@+id/postAnotherDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
@@ -65,7 +66,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/postMessage"
+        android:id="@+id/postAnotherMessage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Wanted!! this man robbed me"
@@ -77,30 +78,24 @@
         android:layout_marginHorizontal="20dp"
         android:textColor="#D0353535"/>
 
-    <ImageView
-        android:id="@+id/postImage"
-        android:layout_width="match_parent"
-        android:layout_height="325dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/postMessage"
-        app:layout_constraintVertical_bias="0.16000003" />
-
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#919191"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/postImage"
-        app:layout_constraintVertical_bias="0.42000002" />
+        app:layout_constraintTop_toBottomOf="@+id/postAnotherMessage"
+        app:layout_constraintVertical_bias="0.26"
+        tools:ignore="NotSibling" />
 
 
     <View
+        android:layout_marginTop="185dp"
         android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="10dp"
-        android:layout_marginTop="550dp"
         android:background="#919191"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,7 +15,7 @@ import com.example.mysocialmedia.ui.fragments.activities.BaseActivity
 import com.google.android.material.snackbar.Snackbar
 
 
-class BaseFragment : Fragment(R.layout.fragment_base) {
+open class BaseFragment : Fragment(R.layout.fragment_base) {
     private var doubleBackToExitOnce = false
     private lateinit var mProgressDialog: Dialog
     override fun onCreate(savedInstanceState: Bundle?) {

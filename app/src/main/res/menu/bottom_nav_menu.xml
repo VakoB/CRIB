@@ -13,7 +13,8 @@
 
     <item
         android:id="@+id/placeHolder"
-        android:title=" " />
+        android:title=" "
+        android:enabled="false"/>
 
     <item
         android:id="@+id/navigation_notifications"
