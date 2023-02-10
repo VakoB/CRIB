@@ -2,6 +2,7 @@ package com.example.mysocialmedia.ui.fragments.activities
 
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -15,6 +16,7 @@ import com.example.mysocialmedia.utils.Constants
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
@@ -199,9 +201,20 @@ class EditProfileActivity : BaseActivity(), View.OnClickListener {
         finish()
 
     }
+    @SuppressLint("CommitPrefEdits")
     fun imageUploadSuccess(imageURL: String) {
         //hideProgressDialog()
         mUserProfileImageURL = imageURL
+        val sharedPreferences =
+            getSharedPreferences(
+                Constants.MYPREFERENCES,
+                Context.MODE_PRIVATE
+            )
+        val editor: SharedPreferences.Editor = sharedPreferences.edit()
+        if (mSelectedImageFileUri != null){
+            editor.putString(Constants.USER_IMG,mUserProfileImageURL)
+        }
+
         updateUserProfileWithoutImage()
 
     }

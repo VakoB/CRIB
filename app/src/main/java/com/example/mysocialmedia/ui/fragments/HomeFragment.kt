@@ -58,7 +58,7 @@ class HomeFragment : BaseFragment() {
         postsArrayList = arrayListOf()
 
 
-        postAdapter = PostAdapter(postsArrayList)
+        postAdapter = PostAdapter(requireContext(),postsArrayList)
         binding.recyclerView.adapter = postAdapter
         EventChangeListener()
         val sharedPreferences = requireActivity().getSharedPreferences(Constants.MYPREFERENCES,Context.MODE_PRIVATE)

@@ -34,6 +34,8 @@ object Constants {
     const val AUTHOR_NAME = "author"
     const val LIKES = "likes"
     const val COMMENTS = "comments"
+    const val USER_ID = "uid"
+    const val USER_IMG = "userImage"
 
 
     fun showImageChooser(activity: Activity){

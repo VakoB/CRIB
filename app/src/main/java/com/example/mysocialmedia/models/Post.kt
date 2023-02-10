@@ -15,4 +15,5 @@ class Post(
     val comments: List<Comment> = emptyList(),
     var id: String = "",
     val time: String ="",
+    val authorImage: String = "",
 ) : Parcelable

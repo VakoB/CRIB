@@ -22,6 +22,7 @@ import com.example.mysocialmedia.databinding.ActivityPostBinding
 import com.example.mysocialmedia.firestore.Firestore
 import com.example.mysocialmedia.models.Comment
 import com.example.mysocialmedia.models.Post
+import com.example.mysocialmedia.models.User
 import com.example.mysocialmedia.utils.Constants
 import com.example.mysocialmedia.utils.GlideLoader
 import java.io.IOException
@@ -35,6 +36,7 @@ class PostActivity : BaseActivity(), View.OnClickListener {
     private lateinit var postAdapter: PostAdapter
     private var mSelectedPostImageFileUri: Uri? = null
     private var mPostImageURL: String = ""
+    private var mPostProfileImageURL: String = ""
     private lateinit var binding: ActivityPostBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityPostBinding.inflate(layoutInflater)
@@ -51,7 +53,8 @@ class PostActivity : BaseActivity(), View.OnClickListener {
         }
         setUpActionBar()
         binding.linearLayoutId.setOnClickListener(this@PostActivity)
-        binding.postSubmit.setOnClickListener(this)
+        binding.postSubmit.setOnClickListener(this@PostActivity)
+
 
 
 
@@ -92,16 +95,8 @@ class PostActivity : BaseActivity(), View.OnClickListener {
                 }
                 R.id.postSubmit -> {
                     showProgressDialog("Please Wait...")
-                    if (mSelectedPostImageFileUri != null){
-                        Firestore().uploadPostImageToCloudStorage(this@PostActivity, mSelectedPostImageFileUri)
-                    }
-                    else if (mSelectedPostImageFileUri == null && binding.postTitle.text.toString().isNotEmpty()){
-                        postWithoutImage()
-                    }
-                    else{
-                        hideProgressDialog()
-                        showErrorSnackBar("You haven't made it clear what to post", true)
-                    }
+                    Firestore().getUserDetails(this@PostActivity)
+
 
                 }
 
@@ -127,13 +122,15 @@ class PostActivity : BaseActivity(), View.OnClickListener {
         if (mPostImageURL.isNotEmpty()){
             mPostImageURL2 = mPostImageURL
         }
+        Log.e("0000",mPostProfileImageURL)
 
         val post = Post(
             title = textOfPost,
             image = mPostImageURL2,
             authorId = currentUserID,
             author = username,
-            time = formattedDate
+            time = formattedDate,
+            authorImage = mPostProfileImageURL,
         )
         Firestore().setPostsInFirestore(this@PostActivity, post)
 
@@ -172,6 +169,22 @@ class PostActivity : BaseActivity(), View.OnClickListener {
         val intent = Intent(this@PostActivity, DashboardActivity::class.java)
         startActivity(intent)
         finish()
+    }
+    fun getAuthorImageURL(user: User){
+        if (user.image != ""){
+            mPostProfileImageURL = user.image
+        }
+        if (mSelectedPostImageFileUri != null){
+            Firestore().uploadPostImageToCloudStorage(this@PostActivity, mSelectedPostImageFileUri)
+        }
+        else if (mSelectedPostImageFileUri == null && binding.postTitle.text.toString().isNotEmpty()){
+            postWithoutImage()
+        }
+        else{
+            hideProgressDialog()
+            showErrorSnackBar("You haven't made it clear what to post", true)
+        }
+
     }
 
 

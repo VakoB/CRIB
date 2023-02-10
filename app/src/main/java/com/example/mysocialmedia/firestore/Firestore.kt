@@ -84,6 +84,9 @@ class Firestore {
                     is ProfileActivity -> {
                         activity.userDetailsSuccess(user)
                     }
+                    is PostActivity -> {
+                        activity.getAuthorImageURL(user)
+                    }
 
 
                 }
@@ -103,7 +106,6 @@ class Firestore {
 
 
             }
-
 
 
 
