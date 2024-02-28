@@ -1,0 +1,7 @@
+![Screenshot_20240228_041407](https://github.com/VakoB/CRIB/assets/115661246/40065f5a-ccd9-4102-aaf4-c2db4ef9ea70)
+![Screenshot_20240228_041543](https://github.com/VakoB/CRIB/assets/115661246/bcc097d6-4736-4f75-a111-1c02d11fb03f)
+![Screenshot_20240228_041610](https://github.com/VakoB/CRIB/assets/115661246/0af5dcad-8a13-4dae-a3c5-e6b057f6682b)
+![Screenshot_20240228_041627](https://github.com/VakoB/CRIB/assets/115661246/a3f0b5ac-463c-47b7-91b2-08bca47a1496)
+![Screenshot_20240228_041655](https://github.com/VakoB/CRIB/assets/115661246/4e1412f1-46a1-4033-ab55-46deba904853)
+![Screenshot_20240228_041815](https://github.com/VakoB/CRIB/assets/115661246/69c228b1-b908-49a9-a3e1-7a74237e5795)
+![Screenshot_20240228_041828](https://github.com/VakoB/CRIB/assets/115661246/df9b1112-4396-43c3-96b1-5afd9202c5a4)
